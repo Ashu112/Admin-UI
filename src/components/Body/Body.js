@@ -38,11 +38,16 @@ const Body = () => {
         <Search />
       </div>
       <div className="table-container">
-        <TableContainer>
+        <TableContainer
+          style={{
+            border: "none",
+            backgroundColor: "aqua",
+          }}
+        >
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>
+                <TableCell align="center">
                   <Checkbox />
                 </TableCell>
                 <TableCell>Name</TableCell>
