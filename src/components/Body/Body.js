@@ -13,6 +13,7 @@ import {
   Checkbox,
   Paper,
 } from "@mui/material";
+import "./Body.css";
 
 const Body = () => {
   const [dataList, setDataList] = useState([]);
@@ -33,8 +34,9 @@ const Body = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
-    <div>
+    <div className="main-container">
       <div className="search-continer">
         <Search />
       </div>
