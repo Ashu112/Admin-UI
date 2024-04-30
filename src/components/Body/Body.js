@@ -91,54 +91,7 @@ const Body = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {dataList.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  style={{ backgroundColor: "white" }}
-                >
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    align="center"
-                    sx={{ border: "none" }}
-                  >
-                    <Checkbox />
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    align="center"
-                    sx={{ border: "none" }}
-                  >
-                    {row.name}
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    align="center"
-                    sx={{ border: "none" }}
-                  >
-                    {row.email}
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    align="center"
-                    sx={{ border: "none" }}
-                  >
-                    {row.role}
-                  </TableCell>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    align="center"
-                    sx={{ border: "none" }}
-                  >
-                    Action items
-                  </TableCell>
-                </TableRow>
-              ))}
+              <DataTable dataList={dataList} />
             </TableBody>
           </Table>
         </TableContainer>
