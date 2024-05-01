@@ -1,0 +1,23 @@
+.pagination-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  border: none;
+  margin: 7px;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+  padding: 5px 10px;
+}
+
+.active-btn {
+  background-color: grey;
+  color: black;
+  border-radius: 20px;
+  border: 1px solid;
+  font-size: 30px;
+  padding: 5px 10px;
+}

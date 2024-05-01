@@ -14,10 +14,14 @@ import {
   Paper,
 } from "@mui/material";
 import "./Body.css";
+import Pagination from "../Pagination/Pagination";
 
 const Body = () => {
   const [dataList, setDataList] = useState([]);
-
+  const usersPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+  const first = (currentPage - 1) * usersPerPage;
+  const last = currentPage * usersPerPage;
   //function to fetch data from the api using axios
   const fetchData = async () => {
     try {
@@ -97,6 +101,11 @@ const Body = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={Math.ceil(dataList.length / usersPerPage)}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
       </div>
     </div>
   );
