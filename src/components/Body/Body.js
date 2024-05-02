@@ -113,7 +113,6 @@ const Body = () => {
           dataList={dataList}
           setFilteredData={setFilteredData}
           setCurrentPage={setCurrentPage}
-          setDataList={setDataList}
         />
       </div>
       <div className="table-container">
