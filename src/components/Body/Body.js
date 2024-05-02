@@ -18,20 +18,86 @@ import Pagination from "../Pagination/Pagination";
 
 const Body = () => {
   const [dataList, setDataList] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedUser, setSelectedUser] = useState([]);
   const usersPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
   const first = (currentPage - 1) * usersPerPage;
   const last = currentPage * usersPerPage;
+
   //function to fetch data from the api using axios
   const fetchData = async () => {
     try {
       const url =
         "https://geektrust.s3-ap-southeast-1.amazonaws.com/adminui-problem/members.json";
       const response = await axios.get(url);
-      console.log(response);
       setDataList(response.data);
+      setFilteredData(response.data);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  //row select logic
+  const handleRowSelect = (id) => {
+    if (selectedUser.includes(id)) {
+      setSelectedUser((prevSelectedId) =>
+        prevSelectedId.filter((rowId) => rowId !== id)
+      );
+    } else {
+      setSelectedUser((prevSelectedId) => [...prevSelectedId, id]);
+    }
+  };
+
+  // selecting all the users on current page
+  const handleAllSelect = () => {
+    const currentPageData = filteredData.slice(first, last);
+
+    const allSelected = currentPageData.every((user) =>
+      selectedUser.includes(user.id)
+    );
+
+    if (allSelected) {
+      setSelectedUser((prevSelectedId) =>
+        prevSelectedId.filter(
+          (id) => !currentPageData.some((userData) => userData.id === id)
+        )
+      );
+    } else {
+      setSelectedUser((prevSelectedId) => [
+        ...prevSelectedId,
+        ...currentPageData.map((userData) => userData.id),
+      ]);
+    }
+  };
+
+  // function to remove user from button
+  const handleDeleteSelected = () => {
+    const newData = filteredData.filter(
+      (user) => !selectedUser.includes(user.id)
+    );
+
+    setFilteredData(newData);
+    setDataList(newData);
+
+    const updatedPages = Math.ceil(newData.length / usersPerPage);
+
+    if (currentPage > updatedPages) setCurrentPage(updatedPages);
+
+    setSelectedUser([]);
+  };
+
+  // function to delete data on the same row
+  const handleRowDelete = (id) => {
+    const newFilteredData = filteredData.filter((user) => user.id !== id);
+
+    setFilteredData(newFilteredData);
+    setDataList(dataList.filter((user) => user.id !== id));
+
+    const updatedPages = Math.ceil(newFilteredData.length / usersPerPage);
+
+    if (currentPage > updatedPages) {
+      setCurrentPage(updatedPages);
     }
   };
 
@@ -42,16 +108,15 @@ const Body = () => {
   return (
     <div className="main-container">
       <div className="search-continer">
-        <Search />
+        <Search
+          dataList={dataList}
+          setFilteredData={setFilteredData}
+          setCurrentPage={setCurrentPage}
+          setDataList={setDataList}
+        />
       </div>
       <div className="table-container">
-        <TableContainer
-          component={Paper}
-          style={{
-            border: "none",
-            backgroundColor: "aqua",
-          }}
-        >
+        <TableContainer className="table-head" component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -97,13 +162,13 @@ const Body = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <DataTable dataList={dataList} />
+              <DataTable dataList={filteredData.slice(first, last)} />
             </TableBody>
           </Table>
         </TableContainer>
         <Pagination
           currentPage={currentPage}
-          totalPages={Math.ceil(dataList.length / usersPerPage)}
+          totalPages={Math.ceil(filteredData.length / usersPerPage)}
           onPageChange={(page) => setCurrentPage(page)}
         />
       </div>

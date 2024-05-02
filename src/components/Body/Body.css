@@ -2,3 +2,15 @@
   padding: 30px;
   margin: 20px;
 }
+
+.table-head {
+  border: none;
+  background: rgb(188, 188, 201);
+  background: linear-gradient(
+    90deg,
+    rgba(188, 188, 201, 1) 0%,
+    rgba(59, 48, 88, 0.9926733877144608) 33%,
+    rgba(59, 48, 88, 1) 66%,
+    rgba(188, 188, 201, 1) 100%
+  );
+}

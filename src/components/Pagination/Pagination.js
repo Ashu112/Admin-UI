@@ -7,7 +7,6 @@ import "./Pagination.css";
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const pageInfo = Array.from({ length: totalPages }, (_, index) => index + 1);
-  console.log(pageInfo);
 
   const handleLeftDouble = () => {
     onPageChange(1);
