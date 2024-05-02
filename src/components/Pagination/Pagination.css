@@ -14,9 +14,16 @@
 }
 
 .active-btn {
-  background-color: grey;
+  background: rgb(188, 188, 201);
+  background: linear-gradient(
+    90deg,
+    rgba(188, 188, 201, 1) 0%,
+    rgba(59, 48, 88, 0.9926733877144608) 33%,
+    rgba(59, 48, 88, 1) 66%,
+    rgba(188, 188, 201, 1) 100%
+  );
   color: black;
-  border-radius: 20px;
+  border-radius: 10px;
   border: 1px solid;
   font-size: 30px;
   padding: 5px 10px;
