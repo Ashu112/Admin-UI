@@ -12,6 +12,7 @@ import {
   TableBody,
   Checkbox,
   Paper,
+  Button,
 } from "@mui/material";
 import "./Body.css";
 import Pagination from "../Pagination/Pagination";
@@ -121,7 +122,17 @@ const Body = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="center">
-                  <Checkbox />
+                  <Checkbox
+                    checked={
+                      !!(
+                        filteredData.length &&
+                        filteredData
+                          .slice(first, last)
+                          .every((user) => selectedUser.includes(user.id))
+                      )
+                    }
+                    onClick={handleAllSelect}
+                  />
                 </TableCell>
                 <TableCell
                   align="center"
@@ -162,16 +173,30 @@ const Body = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <DataTable dataList={filteredData.slice(first, last)} />
+              <DataTable
+                dataList={filteredData.slice(first, last)}
+                selectedUser={selectedUser}
+                setFilteredData={setFilteredData}
+                handleRowSelect={handleRowSelect}
+                setDataList={setDataList}
+                handleRowDelete={handleRowDelete}
+              />
             </TableBody>
           </Table>
         </TableContainer>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={Math.ceil(filteredData.length / usersPerPage)}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
       </div>
+      {filteredData.length > 0 && (
+        <div className="footer">
+          <Button className="delete-btn" onClick={handleDeleteSelected}>
+            Delete All
+          </Button>
+          <Pagination
+            currentPage={currentPage}
+            totalPages={Math.ceil(filteredData.length / usersPerPage)}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
+        </div>
+      )}
     </div>
   );
 };
