@@ -187,7 +187,7 @@ const Body = () => {
       {filteredData.length > 0 && (
         <div className="footer">
           <Button className="delete-btn" onClick={handleDeleteSelected}>
-            Delete All
+            Delete Selected
           </Button>
           <Pagination
             currentPage={currentPage}

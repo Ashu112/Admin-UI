@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneIcon from "@mui/icons-material/Done";
+import "./DataTable.css";
 
 const DataTable = ({
   dataList,
@@ -148,7 +149,9 @@ const DataTable = ({
         ))
       ) : (
         <TableRow>
-          <TableCell>No Data Found !</TableCell>
+          <TableCell colSpan={5} align="center" className="no-data">
+            No Data Found !
+          </TableCell>
         </TableRow>
       )}
     </>
